@@ -1,0 +1,85 @@
+.filter-container {
+    .cards-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        .card {
+            max-width: 40rem;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            margin: 1.6rem 0.8rem;
+            height: fit-content;
+            #addFilter {
+                img {
+                    max-width: 32rem;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            #addCanvasWatermark {
+                width: 100%;
+                canvas {
+                    max-width: 32rem;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .actions {
+                display: flex;
+            }
+            .image {
+                margin-bottom: 1.6rem;
+            }
+            .scrolling-wrapper {
+                overflow: hidden;
+                max-width: 32rem;
+                .scroll-horizontal {
+                    display: flex;
+                    overflow: auto;
+                    overflow-y: hidden;
+                    list-style: none;
+                    padding: 0;
+                    .card-filter {
+                        cursor: pointer;
+                        padding: 0.8rem;
+                        margin: 0.8rem;
+                        max-width: 8rem;
+                        max-height: 9.6rem;
+                    }
+                }
+            }
+            .filter-name {
+                text-transform: capitalize;
+                font-weight: bold;
+                font-size: 1.6rem;
+            }
+            mat-label {
+                width: 50px;
+            }
+            .mat-slider {
+                min-width: 19.2rem;
+            }
+            .watermark {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                .form-group {
+                    flex-direction: row;
+                    display: flex;
+                    align-items: baseline;
+                    justify-content: center;
+                }
+                mat-form-field {
+                    width: 100%;
+                    text-align: left;
+                    padding: 0 0.8rem;
+                }
+            }
+        }
+    }
+}

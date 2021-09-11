@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="form">
+        <app-button (clickButton)="clickFileButton()" [type]="'icon-with-text'" [icon]="'image'"
+            [text]="'Select Image'"></app-button>
+        <input #selectImage type="file" (change)="selectInputEvent($event)" accept="image/*" hidden>
+    </div>
+    <app-crop-image *ngIf="showCropper" [type]="type" [imageChangedEvent]="imageChangedEvent" (cropImage)="saveCroppedImage($event)">
+    </app-crop-image>
+    <app-filter-image *ngIf="showFilter" [type]="type" (back)="goback($event)" [imageChanged]="croppedImage"></app-filter-image>
+</div>
