@@ -1,15 +1,15 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
-    selector: 'app-image-process',
-    templateUrl: './image-process.component.html',
-    styleUrls: ['./image-process.component.scss']
+    selector: 'app-image-editor',
+    templateUrl: './image-editor.component.html',
+    styleUrls: ['./image-editor.component.scss']
 })
 
-export class ImageProcessComponent implements OnInit {
+export class ImageEditorComponent implements OnInit {
 
     // vars
-    @ViewChild('selectImage', {static: false}) selectImage: ElementRef;
+    @ViewChild('selectImage', { static: false }) selectImage: ElementRef;
 
     imageChangedEvent: any;
     croppedImage: any;
@@ -47,7 +47,7 @@ export class ImageProcessComponent implements OnInit {
         this.showFilter = false;
     }
 
-    goback(event) {
+    goBack(event) {
         this.showCropper = true;
         this.showFilter = false;
     }

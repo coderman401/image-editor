@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { FILTERS } from '../../data/filter-list.data';
+import { Filter } from '../../../../shared/models/filter.mode';
+import { FILTERS } from '../../../../shared/configs/filter-list.data';
 
 @Component({
     selector: 'app-filter-image',
@@ -16,8 +17,8 @@ export class FilterImageComponent implements OnInit {
     @Output() back = new EventEmitter();
 
     // filter vars
-    filters = FILTERS;
-    currentFilter;
+    filters: Filter[] = FILTERS;
+    currentFilter: Filter;
     selected = 0;
     sepia;
     brightness;
@@ -44,12 +45,12 @@ export class FilterImageComponent implements OnInit {
 
     initFilter() {
         this.currentFilter = this.filters[0];
-        this.sepia = this.currentFilter.filters.sepia * 100;
-        this.brightness = this.currentFilter.filters.brightness * 100;
-        this.saturate = this.currentFilter.filters.saturate * 100;
-        this.contrast = this.currentFilter.filters.contrast * 100;
-        this.hueRotate = this.currentFilter.filters.hue_rotate;
-        this.grayScale = this.currentFilter.filters.gray_scale * 100;
+        this.sepia = this.currentFilter.filterParams.sepia * 100;
+        this.brightness = this.currentFilter.filterParams.brightness * 100;
+        this.saturate = this.currentFilter.filterParams.saturate * 100;
+        this.contrast = this.currentFilter.filterParams.contrast * 100;
+        this.hueRotate = this.currentFilter.filterParams.hueRotate;
+        this.grayScale = this.currentFilter.filterParams.grayScale * 100;
     }
 
     // manually filter apply
@@ -60,28 +61,28 @@ export class FilterImageComponent implements OnInit {
     applyFilter(event) {
         this.currentFilter = event;
         this.selected = this.filters.indexOf(event);
-        this.sepia = Math.round(this.currentFilter.filters.sepia * 100);
-        this.brightness = Math.round(this.currentFilter.filters.brightness * 100);
-        this.saturate = Math.round(this.currentFilter.filters.saturate * 100);
-        this.contrast = Math.round(this.currentFilter.filters.contrast * 100);
-        this.hueRotate = Math.round(this.currentFilter.filters.hue_rotate);
-        this.grayScale = Math.round(this.currentFilter.filters.gray_scale * 100);
+        this.sepia = Math.round(this.currentFilter.filterParams.sepia * 100);
+        this.brightness = Math.round(this.currentFilter.filterParams.brightness * 100);
+        this.saturate = Math.round(this.currentFilter.filterParams.saturate * 100);
+        this.contrast = Math.round(this.currentFilter.filterParams.contrast * 100);
+        this.hueRotate = Math.round(this.currentFilter.filterParams.hueRotate);
+        this.grayScale = Math.round(this.currentFilter.filterParams.grayScale * 100);
         this.addFilterClass();
     }
 
     addFilterClass() {
-        this.currentFilter.generated_filter = '';
-        this.currentFilter.generated_filter += `sepia(${this.sepia / 100})`;
-        this.currentFilter.generated_filter += ` brightness(${this.brightness / 100})`;
-        this.currentFilter.generated_filter += ` saturate(${this.saturate / 100})`;
-        this.currentFilter.generated_filter += ` contrast(${this.contrast / 100})`;
-        this.currentFilter.generated_filter += ` hue-rotate(${this.hueRotate}deg)`;
-        this.currentFilter.generated_filter += ` grayscale(${this.grayScale / 100})`;
+        this.currentFilter.generatedFilter = '';
+        this.currentFilter.generatedFilter += `sepia(${this.sepia / 100})`;
+        this.currentFilter.generatedFilter += ` brightness(${this.brightness / 100})`;
+        this.currentFilter.generatedFilter += ` saturate(${this.saturate / 100})`;
+        this.currentFilter.generatedFilter += ` contrast(${this.contrast / 100})`;
+        this.currentFilter.generatedFilter += ` hue-rotate(${this.hueRotate}deg)`;
+        this.currentFilter.generatedFilter += ` grayscale(${this.grayScale / 100})`;
         if (this.isWatermark) {
             this.changeWatermark('');
         } else {
             const el: any = document.getElementById('addFilter');
-            el.style = `filter: ${this.currentFilter.generated_filter}`;
+            el.style = `filter: ${this.currentFilter.generatedFilter}`;
         }
     }
 
@@ -89,7 +90,7 @@ export class FilterImageComponent implements OnInit {
     addRemoveWatermark(event) {
         if (!this.isWatermark) {
             const el: any = document.getElementById('addFilter');
-            el.style = `filter: ${this.currentFilter.generated_filter}`;
+            el.style = `filter: ${this.currentFilter.generatedFilter}`;
         }
         const canvas = document.createElement('canvas') as HTMLCanvasElement;
         const img = new Image();
@@ -128,7 +129,7 @@ export class FilterImageComponent implements OnInit {
         canvas.setAttribute('width', img.width.toString());
         canvas.setAttribute('height', img.height.toString());
         if (type === 'watermark' || type === 'save') {
-            ctx.filter = this.currentFilter.generated_filter;
+            ctx.filter = this.currentFilter.generatedFilter;
         }
         ctx.drawImage(img, 0, 0, img.width, img.height);
     }
@@ -168,9 +169,9 @@ export class FilterImageComponent implements OnInit {
             }
             const url = tempCanvas.toDataURL('image/base64;');
             const anchor = document.createElement('a');
-            const ext = this.type.replace('image/', '') || 'jpg';
+            // const ext = this.type.replace('image/', '') || 'jpg';
             const timestamp = new Date().getTime();
-            anchor.setAttribute('download', timestamp + ext);
+            anchor.setAttribute('download', timestamp.toString());
             anchor.setAttribute('href', url);
             anchor.click();
         };

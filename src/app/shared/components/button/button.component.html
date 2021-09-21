@@ -1,15 +1,15 @@
-<div *ngIf="type === 'icon-only'" >
+<div *ngIf="type === 'icon-only'">
     <button color="primary" mat-icon-button (click)="click()">
         <mat-icon>{{ icon }}</mat-icon>
     </button>
 </div>
-<div *ngIf="type === 'icon-with-text'" >
+<div *ngIf="type === 'icon-with-text'">
     <button mat-raised-button color="primary" (click)="click()">
         <mat-icon>{{ icon }}</mat-icon>
         {{ text }}
     </button>
 </div>
-<div *ngIf="type === 'text-only'" >
+<div *ngIf="type === 'text-only'">
     <button mat-button color="primary" (click)="click()">
         {{ text }}
     </button>

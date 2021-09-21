@@ -12,6 +12,7 @@ export class FilterListComponent implements OnInit {
     @Input() src;
     @Input() selected;
     @Output() applyFilter = new EventEmitter();
+
     constructor() { }
 
     ngOnInit(): void {

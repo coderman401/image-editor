@@ -9,7 +9,7 @@ const routes: Routes = [
     },
     {
         path: 'process',
-        loadChildren: () => import('./components/image-process/image-process.module').then(m => m.ImageProcessModule),
+        loadChildren: () => import('./modules/image-editor/image-editor.module').then(m => m.ImageEditorModule),
     }
 ];
 

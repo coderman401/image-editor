@@ -20,16 +20,16 @@
     }
 }
 .is-selected {
-    &::before{
-        background: rgba(0,0,0,0.6);
-        content:"";
-          display: block;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 2;
+    &::before {
+        background: rgba(0, 0, 0, 0.6);
+        content: "";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
     }
     position: relative;
 }

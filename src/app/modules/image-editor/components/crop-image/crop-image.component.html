@@ -1,0 +1,52 @@
+<div class="crop-container">
+    <mat-card class="card">
+        <mat-label *ngIf="!showCropper">Select Image For Process</mat-label>
+        <div class="actions" *ngIf="showCropper">
+            <app-button [type]="'icon-only'" [icon]="'zoom_in'" (clickButton)="zoomIn()" matTooltip="Zoom In">
+            </app-button>
+            <app-button [type]="'icon-only'" [icon]="'zoom_out'" (clickButton)="zoomOut()" matTooltip="Zoom Out">
+            </app-button>
+            <app-button [type]="'icon-only'" [icon]="'rotate_left'" (clickButton)="rotateLeft()"
+                matTooltip="Rotate Left"></app-button>
+            <app-button [type]="'icon-only'" [icon]="'rotate_right'" (clickButton)="rotateRight()"
+                matTooltip="Rotate Right"></app-button>
+            <app-button [type]="'icon-only'" [icon]="'aspect_ratio'" (clickButton)="toggleContainWithinAspectRatio()"
+                *ngIf="containWithinAspectRatio" matTooltip="Fill Aspect Ratio"></app-button>
+            <app-button [type]="'icon-only'" [icon]="'filter_center_focus'"
+                (clickButton)="toggleContainWithinAspectRatio()" *ngIf="!containWithinAspectRatio"
+                matTooltip="Contain Within Aspect Ratio"></app-button>
+            <app-button [type]="'icon-only'" [icon]="'clear'" (clickButton)="resetImage()" matTooltip="Clear">
+            </app-button>
+            <app-button [matMenuTriggerFor]="menu" [type]="'text-only'" [text]="aspectRatio" matTooltip="Aspect Ratio">
+            </app-button>
+            <mat-menu #menu="matMenu">
+                <button *ngFor="let ratio of aspectRatios" mat-menu-item (click)="setAspectRatio(ratio)">{{ ratio
+                    }}</button>
+            </mat-menu>
+        </div>
+        <div class="actions" *ngIf="showCropper">
+            <mat-label>Rotate&nbsp;&nbsp;</mat-label>
+            <input (input)="updateRotation()" type="number" matInput [(ngModel)]="rotation" /> deg
+        </div>
+        <!-- [resizeToWidth]="256" -->
+        <!-- [cropperMinWidth]="128" -->
+        <div class="image">
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="ratio" [onlyScaleDown]="true"
+                [roundCropper]="false" [canvasRotation]="canvasRotation" [transform]="transform" format="webp"
+                [alignImage]="'center'" [style.display]="showCropper ? null : 'none'"
+                (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady($event)" (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+        <div class="actions" *ngIf="showCropper">
+            <app-button [type]="'icon-with-text'" [icon]="'crop'" [text]="'Crop & Next'"
+                (clickButton)="saveCroppedImage()"></app-button>
+        </div>
+    </mat-card>
+</div>
+
+
+<!-- Extra -->
+
+<!-- <button (click)="flipHorizontal()">Flip horizontal</button>
+<button (click)="flipVertical()">Flip vertical</button> -->
